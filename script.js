@@ -1,32 +1,20 @@
-document.getElementById('uploadButton').addEventListener('click', () => {
-    const files = document.getElementById('fileInput').files;
-    if (files.length === 0) {
-      console.log('No files selected');
-      return;
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    const gallery = document.querySelector('.gallery');
 
-    Array.from(files).forEach(file => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        // Asume que estás cargando las imágenes a un servidor
-        // La URL debe apuntar al lugar correcto donde las imágenes serán almacenadas
-        const imageUrl = `/icons/${file.name}`; // Supón que has subido las imágenes a /icons/
-
-        fetch('https://jsonplaceholder.typicode.com/posts', {
-          method: 'POST',
-          body: JSON.stringify({
-            title: file.name,
-            body: reader.result,
-            userId: 1,
-            imageUrl: 'icons/icono-576x1024.jpeg',// URL pública de la imagen cargada
-          }),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-          },
-        })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
-      };
-      reader.readAsDataURL(file);
-    });
-  });
+    fetch('https://jsonplaceholder.typicode.com/photos?_limit=16')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(photo => {
+                const item = document.createElement('div');
+                item.classList.add('gallery-item');
+                item.innerHTML = `
+                    <img src="${photo.thumbnailUrl}" alt="${photo.title}">
+                    <p>${photo.title}</p>
+                `;
+                item.addEventListener('click', () => {
+                    window.location.href = `photo.html?id=${photo.id}`;
+                });
+                gallery.appendChild(item);
+            });
+        });
+});

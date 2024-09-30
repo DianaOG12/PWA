@@ -1,0 +1,20 @@
+{
+    "name": "Galería Momentos",
+    "short_name": "Galería",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#0000ff",
+    "icons": [
+        {
+            "src": "icons/icono-576x1024.jpeg",
+            "sizes": "576x1024",
+            "type": "image/jpeg"
+        },
+        {
+            "src": "icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
